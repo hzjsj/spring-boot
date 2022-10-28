@@ -1,0 +1,22 @@
+
+
+spring:
+  application:
+    name: manage
+
+  # DataSource Config
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://43.143.104.179:3306/spring
+#    username: spring
+#    password: 5RatLpAphbfZXMXz
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url:   jdbc:mysql://localhost:3306/manage
+    username: root
+    password: 12345678
+
+
+
+server:
+  port: 8080
