@@ -23,4 +23,11 @@ class UserServiceTest {
         Assertions.assertTrue(result);
         System.out.println(user);
     }
+
+    // 测试自定义添加用户逻辑
+    @Test
+    void addUser(){
+        long result = userService.addUser("lisi", 29, "xxx@xx.com");
+        System.out.println(result);
+    }
 }
