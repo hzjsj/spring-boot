@@ -9,12 +9,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 用户
- * @TableName user
+ * 豆瓣 top250
+ * @TableName douban
  */
-@TableName(value ="user")
+@TableName(value ="douban")
 @Data
-public class User implements Serializable {
+public class Douban implements Serializable {
     /**
      * id
      */
@@ -22,44 +22,29 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 用户昵称
+     * 名称
      */
-    private String username;
+    private String name;
 
     /**
-     * 账号
+     * 作者/导演
      */
-    private String userAccount;
+    private String author;
 
     /**
-     * 用户头像
+     * 评分
      */
-    private String avatarUrl;
+    private Integer score;
 
     /**
-     * 性别
+     * 描述
      */
-    private Integer gender;
+    private String remarks;
 
     /**
-     * 密码
+     * 类型1是电影，2是图书
      */
-    private String userPassword;
-
-    /**
-     * 电话
-     */
-    private String phone;
-
-    /**
-     * 邮箱
-     */
-    private String email;
-
-    /**
-     * 状态 0 - 正常
-     */
-    private Integer userStatus;
+    private Integer type;
 
     /**
      * 创建时间
@@ -67,7 +52,7 @@ public class User implements Serializable {
     private Date createTime;
 
     /**
-     *
+     * 更新时间
      */
     private Date updateTime;
 
@@ -75,21 +60,6 @@ public class User implements Serializable {
      * 是否删除
      */
     private Integer isDelete;
-
-    /**
-     * 用户角色 0 - 普通用户 1 - 管理员
-     */
-    private Integer userRole;
-
-    /**
-     * 星球编号
-     */
-    private String planetCode;
-
-    /**
-     * 标签 json 列表
-     */
-    private String tags;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

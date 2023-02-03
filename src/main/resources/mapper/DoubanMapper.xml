@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kdsa.user.mapper.DoubanMapper">
+
+    <resultMap id="BaseResultMap" type="cn.kdsa.user.model.domain.Douban">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="author" column="author" jdbcType="VARCHAR"/>
+            <result property="score" column="score" jdbcType="TINYINT"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,author,
+        score,remarks,type,
+        createTime,updateTime,isDelete
+    </sql>
+
+    <select id="selectFind" resultType="cn.kdsa.user.model.domain.Douban">
+      select * from douban where name = #{name}
+    </select>
+
+    <select id="selectAll" resultType="cn.kdsa.user.model.domain.Douban">
+      select * from douban
+    </select>
+
+  <select id="selectPageVo" resultType="cn.kdsa.user.model.domain.Douban">
+    select * from douban where id > #{id}
+  </select>
+
+  <select id="selectPageList" resultType="cn.kdsa.user.model.domain.Types">
+    select d.id,d.name ,t.typeName from douban d , types t where d.type = t.id
+  </select>
+</mapper>

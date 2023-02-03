@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.kdsa.user.mapper.HouseMapper">
+
+    <resultMap id="BaseResultMap" type="cn.kdsa.user.model.domain.House">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="residentialQuarters" column="residentialQuarters" jdbcType="VARCHAR"/>
+            <result property="room" column="room" jdbcType="TINYINT"/>
+            <result property="hall" column="hall" jdbcType="TINYINT"/>
+            <result property="restRoom" column="restRoom" jdbcType="TINYINT"/>
+            <result property="kitchen" column="kitchen" jdbcType="TINYINT"/>
+            <result property="balcony" column="balcony" jdbcType="TINYINT"/>
+            <result property="area" column="area" jdbcType="DOUBLE"/>
+            <result property="rentalType" column="rentalType" jdbcType="TINYINT"/>
+            <result property="orientation" column="orientation" jdbcType="VARCHAR"/>
+            <result property="maintain" column="maintain" jdbcType="VARCHAR"/>
+            <result property="moveInto" column="moveInto" jdbcType="VARCHAR"/>
+            <result property="storey" column="storey" jdbcType="INTEGER"/>
+            <result property="storeyTotal" column="storeyTotal" jdbcType="INTEGER"/>
+            <result property="elevator" column="elevator" jdbcType="VARCHAR"/>
+            <result property="parkingPlace" column="parkingPlace" jdbcType="VARCHAR"/>
+            <result property="useWater" column="useWater" jdbcType="VARCHAR"/>
+            <result property="useElectricity" column="useElectricity" jdbcType="VARCHAR"/>
+            <result property="supportingFacilities" column="supportingFacilities" jdbcType="VARCHAR"/>
+            <result property="housePicture" column="housePicture" jdbcType="VARCHAR"/>
+            <result property="userId" column="userId" jdbcType="BIGINT"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,residentialQuarters,room,
+        hall,restRoom,kitchen,
+        balcony,area,rentalType,
+        orientation,maintain,moveInto,
+        storey,storeyTotal,elevator,
+        parkingPlace,useWater,useElectricity,
+        supportingFacilities,housePicture,userId,
+        createTime,updateTime,isDelete
+    </sql>
+</mapper>

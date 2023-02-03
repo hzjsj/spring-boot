@@ -1,8 +1,9 @@
 package cn.kdsa.user.service;
 
+import cn.kdsa.user.mapper.LibraryMapper;
 import cn.kdsa.user.mapper.UserMapper;
+import cn.kdsa.user.model.domain.Library;
 import cn.kdsa.user.model.domain.User;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,13 +15,30 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
-class UserServiceTest {
+class LibraryServiceTest {
 
   @Resource
   private UserService userService;
 
   @Resource
   private UserMapper userMapper;
+
+  @Resource
+  private LibraryService libraryService;
+
+  @Test
+  void addBook(){
+    Library library = new Library();
+    library.setTitle("大数据");
+    library.setIsbn("xxx");
+    library.setPrice(10.1D);
+    library.setRemarks("描述信息");
+
+    boolean result = libraryService.save(library);
+
+    System.out.println(result);
+    System.out.println("1234569");
+  }
 
   @Test
   void testAddUser(){
@@ -62,23 +80,5 @@ class UserServiceTest {
     System.out.println(user);
   }
 
-  @Test
-  void testSelectIdSimple2(){
-    User user = userMapper.selectSimple("xxxx");
-    System.out.println(user);
-  }
 
-  @Test
-  void getPages(){
-    Page<User> page = new Page<>(10, 3);
-    userMapper.selectPage(page,null);
-    System.out.println(page);
-  }
-
-  @Test
-  void selectPageVo(){
-    Page<User> page = new Page<>(2, 3);
-    userMapper.selectPageVo(page,25L);
-    System.out.println(page);
-  }
 }

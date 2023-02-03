@@ -4,10 +4,13 @@ import cn.kdsa.user.common.BaseResponse;
 import cn.kdsa.user.common.ErrorCode;
 import cn.kdsa.user.common.ResultUtils;
 import cn.kdsa.user.model.domain.User;
+import cn.kdsa.user.model.domain.request.UserAddRequest;
 import cn.kdsa.user.model.domain.request.UserLoginRequest;
+import cn.kdsa.user.model.domain.request.UserUpdateRequest;
 import cn.kdsa.user.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,6 +24,8 @@ import static cn.kdsa.user.contant.UserContant.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = {"http://localhost:3000"})
+@Validated
 public class UserController {
 
   @Resource
@@ -31,6 +36,10 @@ public class UserController {
     return "this is a spring web...";
   }
 
+  @RequestMapping("/book")
+  public String boos(){
+    return "this is a boos web...";
+  }
 //  @PostMapping("/login/account")
 //  public User userLogin(HttpServletRequest request){
 //
@@ -114,23 +123,73 @@ public class UserController {
     List<User> resultList = userList.stream().map(item -> userService.getSafetyUser(item)).collect(Collectors.toList());
 
     return ResultUtils.success(resultList);
+  }
 
+  @PostMapping("/user/add")
+  public BaseResponse<Integer> addUser(@RequestBody UserAddRequest UserAddRequest, HttpServletRequest request) {
+    if (UserAddRequest == null) {
+      return ResultUtils.error(ErrorCode.PARAMS_ERROR);
+    }
+    String username = UserAddRequest.getUsername();
+    String userAccount = UserAddRequest.getUserAccount();
+    String userPassword = UserAddRequest.getUserPassword();
+    int result = userService.addUser(username, userAccount, userPassword);
+    return ResultUtils.success(result);
+  }
 
+  @PostMapping("/user/update")
+  public BaseResponse<Integer> updateUser(@RequestBody UserUpdateRequest userUpdateRequest, HttpServletRequest request) {
+    if (userUpdateRequest == null) {
+      return ResultUtils.error(ErrorCode.PARAMS_ERROR);
+    }
+    Long id = userUpdateRequest.getId();
+    String username = userUpdateRequest.getUsername();
+    String userAccount = userUpdateRequest.getUserAccount();
+    String userPassword = userUpdateRequest.getUserPassword();
+    int result = userService.updateUser(id,username, userAccount, userPassword);
+    return ResultUtils.success(result);
   }
 
 
+  @PostMapping("/user/addss")
+  public BaseResponse<Boolean> addUserss(@RequestBody UserUpdateRequest userUpdateRequest, HttpServletRequest request) {
+    if (userUpdateRequest == null) {
+      return ResultUtils.error(ErrorCode.PARAMS_ERROR);
+    }
+    User user = new User();
+    user.setId(userUpdateRequest.getId());
+    user.setUsername(userUpdateRequest.getUsername());
+    user.setUserAccount(userUpdateRequest.getUserAccount());
+    user.setUserPassword(userUpdateRequest.getUserPassword());
+
+    boolean result = userService.save(user);
+
+    //long newUserId = user.getId();
+    return ResultUtils.success(result);
+  }
+
+ public String delete(HttpServletRequest request){
+   String id = request.getParameter("id");
+   return "success";
+ }
 
   @GetMapping("/hello")
-  public BaseResponse<String> hello() {
+  public BaseResponse<List<User>> hello() {
 
-    //return new BaseResponse<>(0,"this is a hello world!","message");
-    //return ResultUtils.success("lll");
-    return ResultUtils.success("哈哈哈哈哈");
+    List<User> userList = userService.list(null);
+
+
+    return ResultUtils.success(userList);
   }
 
   @GetMapping("/error")
   public BaseResponse<String> error() {
 
     return ResultUtils.error(ErrorCode.PARAMS_ERROR);
+  }
+
+  @GetMapping("/name/{name}")
+  public void getByName(@PathVariable String name){
+    userService.getByName(name);
   }
 }
